@@ -15,7 +15,7 @@ import com.quiz.lesson03.service.RealEstateBO;
 public class Lesson03Quiz01RestController {
 	
 	@Autowired
-	RealEstateBO realEstateBO;
+	private RealEstateBO realEstateBO;
 	
 	@RequestMapping("/1")
 	public RealEstate quiz01_1(

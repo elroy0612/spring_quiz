@@ -12,7 +12,7 @@ import com.quiz.lesson03.mapper.RealEstateMapper;
 public class RealEstateBO {
 	
 	@Autowired
-	RealEstateMapper realEstateMapper;
+	private RealEstateMapper realEstateMapper;
 	
 	public RealEstate getRealEstateById(int id) {
 		return realEstateMapper.selectRealEstateById(id);
@@ -37,5 +37,9 @@ public class RealEstateBO {
 	public int updateRealEstateById(int id, String type, int price) {
 		return realEstateMapper.updateRealEstateById(id, type, price);
 	}
+	
+	public void deleteRealEstateById(int id) {
+		realEstateMapper.deleteRealEstateById(id);
+	};
 	
 }

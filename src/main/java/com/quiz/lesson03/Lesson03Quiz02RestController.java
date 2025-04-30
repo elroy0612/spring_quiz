@@ -13,7 +13,7 @@ import com.quiz.lesson03.service.RealEstateBO;
 public class Lesson03Quiz02RestController {
 
 	@Autowired
-	RealEstateBO realEstateBO;
+	private RealEstateBO realEstateBO;
 	
 	@RequestMapping("/1")
 	public String quiz02_1() {

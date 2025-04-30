@@ -8,18 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.quiz.lesson03.service.RealEstateBO;
 
 @RestController
-public class Lesson03Quiz03RestController {
+public class Lesson03Quiz04RestController {
 
 	@Autowired
 	private RealEstateBO realEstateBO;
 	
-	@RequestMapping("/lesson03/quiz03/1")
-	public String quiz03(
-			@RequestParam("id") int id,
-			@RequestParam("type") String type,
-			@RequestParam("price") int price) {
+	@RequestMapping("/lesson03/quiz04/1")
+	public String quiz01_1(
+			@RequestParam("id") int id) {
 		
-		int rowCount = realEstateBO.updateRealEstateById(id, type, price);
-		return "수정 성공: " + rowCount;
+		realEstateBO.deleteRealEstateById(id);
+		
+		return "삭제 성공";
 	}
 }
