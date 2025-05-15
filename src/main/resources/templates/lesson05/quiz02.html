@@ -40,8 +40,15 @@
 				<tr th:each="membership : ${memberships}">
 					<td th:text="${membership.name}"></td>
 					<td th:text="${membership.phoneNumber}"></td>
-					<td th:text="${membership.grade}"></td>
-					<td th:text="${membership.point}"></td>
+					<td th:switch="${membership.grade}">
+						<span th:case="'VIP'" th:text="${membership.grade}" class="text-danger"></span>
+						<span th:case="'GOLD'" th:text="${membership.grade}" class="text-warning"></span>
+						<span th:case="*" th:text="${membership.grade}"></span>
+					</td>
+					<td>
+						<span th:if="${membership.point} >= 5000"  th:text="${membership.point} + 'P'" class="text-primary"></span>
+						<span th:unless="${membership.point} >= 5000"  th:text="|${membership.point}P|"></span>
+					</td>
 				</tr>
 			</tbody>
 		</table>

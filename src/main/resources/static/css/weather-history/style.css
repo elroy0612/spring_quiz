@@ -1,0 +1,29 @@
+@charset "UTF-8";
+#wrap {
+	weight: 1200px;
+}
+
+.content {
+	min-height:1000px
+}
+
+footer {
+	height:100px
+}
+
+.menu-font {
+    color:white;
+    font-size:17px;
+    font-weight: bold;
+}
+
+.menu-font:hover {
+    color:white;
+    border: 2px solid white;
+}
+
+.input-label {
+    width:130px;
+    text-align: right;
+    margin-right:10px;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>즐겨찾기 목록</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>즐겨 찾기 목록</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>이름</th>
+					<th>주소</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bookmark : ${bookmarkList}">
+					<td th:text=${bookmark.id} id="id"></td>
+					<td th:text="${bookmark.name}"></td>
+					<td><a th:href="${bookmark.url}" th:text="${bookmark.url}"></a></td>
+					<td>
+						<!-- 1) value 값 이용 -->
+						<!-- <button type="button" th:value="${bookmark.id}" class="del-btn btn btn-dang er">삭제</button> -->
+						
+						<!-- 1) data 이용 -->
+						<button type="button" th:data-bookmark-id="${bookmark.id}" class="del-btn btn btn-danger">삭제</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		$(function() {
+			$(".del-btn").on("click", function(e) {
+				// 1) button value로 값 가져오기
+				// let id = $(this).val();
+				// let id = $(this).attr("value");
+				// let id = e.target.value;
+				
+				// 2) data로 값 가져오기
+				// 태그: data-bookmark-id
+				// 스크립트: .data("bookmark-id")
+				let id = $(this).data("bookmark-id");
+				$.ajax({
+					type:"delete"
+					, url:"/lesson06/delete-bookmark"
+					, data:{"id":id}
+					, success:function(data) {
+						if (data.result == "성공") {
+							location.reload(true); // 새로고침, 스크롤 유지
+						} else {
+							// {"code":500, "error_message":"에러원인"}
+							alert(data.error_message)
+						}
+					}
+					, error:function(error) {
+						alert("삭제하는데 실패했습니다.")
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>

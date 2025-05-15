@@ -1,0 +1,20 @@
+@charset "UTF-8";
+header {
+	height:200px;
+}
+
+section {
+	min-height:600px;
+}
+
+footer {
+	height:100px;
+}
+
+header > ul {
+	background-color:#E3871F;
+}
+
+li > a:hover {
+	background-color:#A76417;
+} 
