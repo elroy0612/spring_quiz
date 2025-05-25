@@ -18,10 +18,10 @@
 		<header>
 			<div class="display-4 text-center pt-2">통나무 펜션</div>
 			<ul class="nav d-flex justify-content-around mt-3">
-				<li class="nav-item"><a class="nav-link text-white font-weight-bold">펜션소개</a></li>			
-				<li class="nav-item"><a class="nav-link text-white font-weight-bold">객실보기</a></li>			
-				<li class="nav-item"><a class="nav-link text-white font-weight-bold">예약하기</a></li>			
-				<li class="nav-item"><a class="nav-link text-white font-weight-bold">예약목록</a></li>			
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">펜션소개</a></li>			
+				<li class="nav-item"><a href="#"class="nav-link text-white font-weight-bold">객실보기</a></li>			
+				<li class="nav-item"><a href="#"class="nav-link text-white font-weight-bold">예약하기</a></li>			
+				<li class="nav-item"><a href="/booking/booking-list-view"class="nav-link text-white font-weight-bold">예약목록</a></li>			
 			</ul>
 		</header>
 		<section>
@@ -64,11 +64,12 @@
 		$(function() {
 			$("#date").datepicker({
 				dateFormat:"yy-mm-dd"
+				, minDate:0
 			});
 			
-			$("#addBtn").on("click", function(e) {
+			$("#addBtn").on("click", function() {
 				let name = $("#name").val().trim();
-				let date = $("#date").val().trim();
+				let date = $("#date").val();
 				let day = $("#day").val().trim();
 				let headcount = $("#headcount").val().trim();
 				let phoneNumber = $("#phoneNumber").val().trim();
@@ -78,11 +79,11 @@
 					return;
 				}
 				if (!date) {
-					alert("예약날짜를 입력해주세요.");
+					alert("예약날짜를 선택해주세요.");
 					return;
 				}
 				if (!day) {
-					alert("숙박일수를 입력해주세요.");
+					alert("숙박일를 입력해주세요.");
 					return;
 				}
 				if (!headcount) {

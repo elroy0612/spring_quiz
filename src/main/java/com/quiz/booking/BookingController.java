@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.quiz.booking.domain.Booking;
-import com.quiz.booking.server.BookingBO;
+import com.quiz.booking.service.BookingBO;
 
 @RequestMapping("/booking")
 @Controller
@@ -38,11 +38,16 @@ public class BookingController {
 	public Map<String, Object> deleteBooking(
 			@RequestParam("id") int id) {
 		
-		bookingBO.deleteBookingById(id);
+		int rowCount = bookingBO.deleteBookingById(id);
 		
 		Map<String, Object> result = new HashMap<>();
-		result.put("code", 200);
-		result.put("result", "성공");
+		if (rowCount > 0) {
+			result.put("code", 200);
+			result.put("result", "성공");
+		} else {
+			result.put("code", 500);
+			result.put("error_message", "삭제할 대상이 없습니다.");
+		}
 		
 		return result;
 	}
@@ -72,4 +77,29 @@ public class BookingController {
 		
 	}
 	
+	@GetMapping("/check-booking-view")
+	public String chechBookingView() {
+		
+		return "booking/checkBooking";
+	}
+	
+	@PostMapping("/check-booking")
+	@ResponseBody
+	public Map<String, Object> checkBooking(
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber) {
+		
+		Booking booking = bookingBO.getBookingByNameAndPhoneNumber(name, phoneNumber);
+		
+		Map<String, Object> result = new HashMap<>();
+		if (booking == null) {
+			result.put("code", 400);
+			result.put("error_message", "예약 내역이 없습니다.");
+		} else {
+			result.put("code", 200);
+			result.put("result", booking);
+		}
+		
+		return result;
+	}
 }

@@ -15,10 +15,10 @@
 		<header>
 			<div class="display-4 text-center pt-2">통나무 펜션</div>
 			<ul class="nav d-flex justify-content-around mt-3">
-				<li class="nav-item"><a class="nav-link text-white font-weight-bold">펜션소개</a></li>			
-				<li class="nav-item"><a class="nav-link text-white font-weight-bold">객실보기</a></li>			
-				<li class="nav-item"><a class="nav-link text-white font-weight-bold">예약하기</a></li>			
-				<li class="nav-item"><a class="nav-link text-white font-weight-bold">예약목록</a></li>			
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">펜션소개</a></li>			
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>			
+				<li class="nav-item"><a href="/booking/make-booking-view" class="nav-link text-white font-weight-bold">예약하기</a></li>			
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">예약목록</a></li>			
 			</ul>
 		</header>
 		<section>
@@ -45,6 +45,7 @@
 						<td th:switch="${booking.state}">
 							<span th:case="대기중" th:text="${booking.state}" class="text-info"></span>
 							<span th:case="확정" th:text="${booking.state}" class="text-success"></span>
+							<span th:case="취소" th:text="${booking.state}" class="text-warning"></span>
 							<span th:case="*" th:text="${booking.state}"></span>
 						</td>
 						<td><button type="button" th:data-booking-id="${booking.id}" class="del-btn btn btn-danger">삭제</button></td>
@@ -70,7 +71,11 @@
 					, data:{"id":id}
 					, success:function(data) {
 						if (data.code == 200) {
-							location.reload(true);
+							location.reload(true); // list 재요청, 스크롤이 유지
+						} else {
+							// 로직 상 실패
+							// {"code":500, "error_message":삭제할 내용이 없습니다.}
+							alert(data.error_message);
 						}
 					}
 					, error:function(error) {
